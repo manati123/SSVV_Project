@@ -1,5 +1,6 @@
 package ssvv.example;
 
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import domain.Nota;
@@ -43,4 +44,25 @@ public class AppTest
 
         assert(true);
     }
+
+    @Test
+    public void addStudent_studentSaved_TestWorks(){
+        StudentValidator validator = new StudentValidator();
+        StudentXMLRepository studentRepo = new StudentXMLRepository(validator,"src/main/resources/studenti.xml");
+        Service studentService = new Service(studentRepo,null,null);
+        Student s = new Student("0","Gigi Becali",936);
+        studentRepo.save(s);
+        Student found = studentRepo.findOne("0");
+        assert(found.getNume().equals(s.getNume()));
+    }
+
+    @Test
+    public void removeStudent_studentRemoved_TestWorks(){
+        StudentValidator validator = new StudentValidator();
+        StudentXMLRepository studentRepo = new StudentXMLRepository(validator,"src/main/resources/studenti.xml");
+        studentRepo.delete("0");
+        assertNull(studentRepo.findOne("0"));
+    }
+
+
 }
