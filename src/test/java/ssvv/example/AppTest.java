@@ -94,7 +94,7 @@ public class AppTest
     }
 
     @Test
-    public void addStudentInvalidGroupNumber(){
+    public void addStudent_invalidGroupNumber(){
         assertEquals(1, service.saveStudent("1", "aa", 938));
         assertEquals(1, service.saveStudent("1", "aa", 110));
         long studentCount = getStudentCount();
@@ -102,15 +102,22 @@ public class AppTest
     }
 
     @Test
-    public void addStudentInvalidName(){
+    public void addStudent_invalidName(){
         assertEquals(1, service.saveStudent("1", null, 937));
         assertEquals(1, service.saveStudent("1", "", 118));
     }
 
     @Test
-    public void addStudentInvalidId(){
-        assertEquals(1, service.saveStudent("0", "john", 937));
+    public void addStudent_invalidId(){
+        assertEquals(1, service.saveStudent("", "john", 937));
         assertEquals(1, service.saveStudent(null, "john", 118));
+    }
+
+    @Test
+    public void addInvalidFields(){
+        assertEquals(1, service.saveStudent("", "john", 940));
+        assertEquals(1, service.saveStudent("okid", "", 940));
+        assertEquals(1, service.saveStudent("", null, 936));
     }
 
     @Test
