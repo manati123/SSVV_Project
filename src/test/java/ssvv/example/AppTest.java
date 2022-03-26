@@ -114,16 +114,18 @@ public class AppTest
     }
 
     @Test
-    public void addInvalidFields(){
+    public void addStudent_invalidFields(){
         assertEquals(1, service.saveStudent("", "john", 940));
         assertEquals(1, service.saveStudent("okid", "", 940));
         assertEquals(1, service.saveStudent("", null, 936));
     }
 
     @Test
-    public void addStudentValid(){
+    public void addStudent_valid(){
         assertEquals(0, service.saveStudent("1", "a", 937));
         assertEquals(0, service.saveStudent("12345", "john", 111));
+        assertEquals(0, service.saveStudent("1", "a", 936));
+        assertEquals(0, service.saveStudent("12345", "john", 112));
         assertEquals(2, getStudentCount());
     }
 
