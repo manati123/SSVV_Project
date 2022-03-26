@@ -53,12 +53,6 @@ public class AppTest
         Validator<Nota> notaValidator = new NotaValidator();
 
         Path path1, path2, path3;
-        /*File file1 = folder.newFile( "studenti_test.xml" );
-         File file2 = folder.newFile( "teme_test.xml" );
-           File file3 = folder.newFile( "note_test.xml" );*/
-        /*path1 = tempDir.resolve( "testfile1.xml" );
-        path2 = tempDir.resolve( "testfile2.xml" );
-        path3 = tempDir.resolve( "testfile3.xml" );*/
         File a = new File("testfile1.xml");
         File b = new File("testfile2.xml");
         File c = new File("testfile3.xml");
@@ -94,27 +88,36 @@ public class AppTest
         a.delete();b.delete();c.delete();
     }
 
+    private long getStudentCount(){
+        Iterable<Student> students = service.findAllStudents();
+        return StreamSupport.stream(students.spliterator(), false).count();
+    }
+
     @Test
     public void addStudentInvalidGroupNumber(){
-        boolean raised = false;
-        assertEquals(1, service.saveStudent("1", "aa", 939));
-        assertEquals(1, service.saveStudent("1", "aa", 109));
-        Iterable<Student> students = service.findAllStudents();
-        long studentCount = StreamSupport.stream(students.spliterator(), false).count();
+        assertEquals(1, service.saveStudent("1", "aa", 938));
+        assertEquals(1, service.saveStudent("1", "aa", 110));
+        long studentCount = getStudentCount();
         assertEquals(0, studentCount);
     }
 
     @Test
     public void addStudentInvalidName(){
-        assertEquals(1, service.saveStudent("1", null, 939));
+        assertEquals(1, service.saveStudent("1", null, 937));
         assertEquals(1, service.saveStudent("1", "", 118));
     }
 
     @Test
     public void addStudentInvalidId(){
-        boolean raised = false;
-        assertEquals(1, service.saveStudent("0", "john", 939));
+        assertEquals(1, service.saveStudent("0", "john", 937));
         assertEquals(1, service.saveStudent(null, "john", 118));
+    }
+
+    @Test
+    public void addStudentValid(){
+        assertEquals(0, service.saveStudent("1", "a", 937));
+        assertEquals(0, service.saveStudent("12345", "john", 111));
+        assertEquals(2, getStudentCount());
     }
 
     @Test
