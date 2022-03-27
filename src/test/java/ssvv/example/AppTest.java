@@ -122,7 +122,7 @@ public class AppTest
     @Test
     public void addStudent_invalidNameAndGroupNumber(){
         assertEquals(1, service.saveStudent("okid", "", 940));
-        assertEquals(1, service.saveStudent(null, null, 940));
+        assertEquals(1, service.saveStudent("okid", null, 940));
     }
 
     @Test
@@ -150,6 +150,9 @@ public class AppTest
     public void addStudent_valid(){
         assertEquals(0, service.saveStudent("1", "a", 937));
         assertEquals(0, service.saveStudent("12345", "john", 111));
+        assertEquals(0, service.saveStudent("1", "a", 937));
+        assertEquals(0, service.saveStudent("12345", "john", 936));
+        assertEquals(0, service.saveStudent("1", "a", 112));
         assertEquals(2, getStudentCount());
     }
 
