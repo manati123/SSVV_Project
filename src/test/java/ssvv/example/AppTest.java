@@ -150,10 +150,20 @@ public class AppTest
     public void addStudent_valid(){
         assertEquals(0, service.saveStudent("1", "a", 937));
         assertEquals(0, service.saveStudent("12345", "john", 111));
-        assertEquals(0, service.saveStudent("1", "a", 937));
-        assertEquals(0, service.saveStudent("12345", "john", 936));
-        assertEquals(0, service.saveStudent("1", "a", 112));
-        assertEquals(2, getStudentCount());
+        assertEquals(0, service.saveStudent("12", "a", 937));
+        assertEquals(0, service.saveStudent("123456", "john", 936));
+        assertEquals(0, service.saveStudent("123", "a", 112));
+        assertEquals(5, getStudentCount());
+    }
+
+    @Test
+    public void addAssignment_validInput(){
+        assertEquals(1, service.saveTema("1", "homework", 5, 7));
+    }
+
+    @Test
+    public void addAssignment_invalidInput(){
+        assertEquals(0, service.saveTema("1", "homework", 5, 3));
     }
 
     @Test
