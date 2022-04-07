@@ -158,12 +158,45 @@ public class AppTest
 
     @Test
     public void addAssignment_validInput(){
-        assertEquals(1, service.saveTema("1", "homework", 5, 7));
+        assertEquals(0, service.saveTema("1", "homework", 5, 3));
     }
 
     @Test
     public void addAssignment_invalidInput(){
-        assertEquals(0, service.saveTema("1", "homework", 5, 3));
+        assertEquals(1, service.saveTema("1", "homework", 5, 7));
+
+    }
+
+
+    @Test
+    public void addAssignment_validationFails_id(){
+        assertEquals(1, service.saveTema("", "homework", 5, 3));
+        assertEquals(1, service.saveTema(null, "homework", 5, 3));
+    }
+
+    @Test
+    public void addAssignment_validationFails_Name(){
+        assertEquals(1, service.saveTema("1", "", 5, 3));
+        assertEquals(1, service.saveTema("1", null, 5, 3));
+    }
+
+    @Test
+    public void addAssignment_validationFails_Deadline(){
+        assertEquals(1, service.saveTema("1", "a", -1, 3));
+        assertEquals(1, service.saveTema("1", "a", 15, 3));
+        assertEquals(1, service.saveTema("1", "a", 8, 9));
+
+    }
+
+    @Test
+    public void addAssignment_validationFails_Startline(){
+        assertEquals(1, service.saveTema("1", "", 5, -1));
+    }
+
+    @Test
+    public void addAssignment_cannotAdd_duplicateId(){
+        assertEquals(0, service.saveTema("1", "a", 5, 3));
+        assertEquals(1, service.saveTema("1", "b", 6, 4));
     }
 
     @Test
