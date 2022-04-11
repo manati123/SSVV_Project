@@ -219,4 +219,28 @@ public class AppTest
     }
 
 
+    @Test
+    public void integration_addStudent(){
+        assertEquals(0, service.saveStudent("1", "a", 937));
+    }
+
+    @Test
+    public void integration_addAssignment(){
+        assertEquals(0, service.saveTema("1", "a", 5, 3));
+
+    }
+
+    @Test
+    public void integration_addGrade(){
+        service.saveStudent("1", "a", 937);
+        service.saveTema("1", "a", 5, 3);
+        assertEquals(0, service.saveNota("1", "1", 9.5, 4, "Ok"));
+    }
+
+    @Test
+    public void integration_addAll(){
+        assertEquals(0, service.saveStudent("1", "a", 937));
+        assertEquals(0, service.saveTema("1", "a", 5, 3));
+        assertEquals(0, service.saveNota("1", "1", 9.5, 4, "Ok"));
+    }
 }
