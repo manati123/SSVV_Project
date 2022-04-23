@@ -243,4 +243,22 @@ public class AppTest
         assertEquals(0, service.saveTema("1", "a", 5, 3));
         assertEquals(0, service.saveNota("1", "1", 9.5, 4, "Ok"));
     }
+
+    @Test
+    public void integration_topDown_addStudent(){
+        assertEquals(0, service.saveStudent("1", "a", 937));
+    }
+
+    @Test
+    public void integration_topDown_addAssignment(){
+        assertEquals(0, service.saveStudent("1", "name", 937));
+        assertEquals(0, service.saveTema("1", "description", 5, 3));
+    }
+
+    @Test
+    public void integration_topDown_addAll(){
+        assertEquals(0, service.saveStudent("2", "name", 937));
+        assertEquals(0, service.saveTema("1", "description", 5, 3));
+        assertEquals(0, service.saveNota("2", "1", 9.5, 4, "Ok"));
+    }
 }
